@@ -74,7 +74,7 @@ int main() {
 		}
 
 
-		int conversionType = image.convertFile();
+		conversionType = image.convertFile();
 		src = imread(input);
 		cvtColor(src, src, conversionType);
 		Size size = { 154,203 };
@@ -130,6 +130,7 @@ int main() {
 		cout << "(2) Start fingerprint scan." << endl;
 		cout << "(3) Exit." << endl;
 		cin >> menu;
+		input = "";
 		switch (menu) {
 			case 1: {
 				while (!exists) {
@@ -165,7 +166,8 @@ int main() {
 				else {
 					
 					/*PUT THE OTHER CODE HERE*/
-					
+					//check again in case they skip straight here
+					//conversionType = image.convertFile();
 					src = imread(input);
 					cvtColor(src, src, conversionType);
 					Size size = { 154,203 };
