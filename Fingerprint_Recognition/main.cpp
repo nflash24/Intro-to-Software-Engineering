@@ -130,6 +130,13 @@ int main() {
 		cout << "(2) Start fingerprint scan." << endl;
 		cout << "(3) Exit." << endl;
 		cin >> menu;
+		while (!cin)
+		{
+			cin.clear();
+			cin.ignore(10000, '\n');
+			cout << "Please, it must be a number!" << endl;
+			cin >> menu;
+		}
 		input = "";
 		switch (menu) {
 			case 1: {
