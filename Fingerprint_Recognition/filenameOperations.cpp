@@ -7,35 +7,65 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "filenameOperations.h"
 
+/*
+	Default empty constructor.
+*/
 filenameOperations::filenameOperations() {
 	// Empty constructor
 }
 
+/*
+	@param filePath : The path for the fingerprint image.
+*/
 filenameOperations::filenameOperations(std::string filePath) {
 	fullPath = filePath;
 	parseFilename();
 }
 
+/*
+	Destructor.
+*/
 filenameOperations::~filenameOperations() {
 	// Empty destructor class.
 }
 
+/*
+	Return the filename.
+*/
 std::string filenameOperations::getFilename() {
 	return filename;
 }
 
+/*
+	Return the extension of the file.
+*/
 std::string filenameOperations::getFileExtension() {
 	return extension;
 }
 
+/*
+	@param fname : File name to be set.
+
+	Set the filename variable to the fname variable.
+*/
 void filenameOperations::setFilename(std::string fname) {
 	filename = fname;
 }
 
+/*
+	@param ext : Extension to be set.
+
+	Set the extension variable to the ext variable.
+*/
 void filenameOperations::setExtension(std::string ext) {
 	extension = ext;
 }
 
+/*
+	Return an enumerated integer that relates to the color conversion
+	within opencv. If the file extension is not one of the accepted 
+	file types, close the program.
+*/
 int filenameOperations::convertFile() {
 	
 	std::cout << "Reading File..." << std::endl;
@@ -50,16 +80,15 @@ int filenameOperations::convertFile() {
 		return cv::COLOR_RGB2GRAY;
 	}
 	else {
-		std::cout << "No file conversions... file not proper type... ending program" << std::endl;
-		exit(EXIT_SUCCESS);
+		std::cout << "No file conversions... file not proper type... try again." << std::endl;
+		//exit(EXIT_SUCCESS);
 	}
 }
 
-/*	   1. We need to parse the whole filename searching for slashes, we will want to keep this information
-	   2. We need to find the final "." and grab the final characters... this should give use the file extension
-	   3. The filename will then be derived from step 2 as well.
+/*
+	Perform operations on the object filePath in order 
+	to break down the file path further into designated parts.
 */
-
 void filenameOperations::parseFilename() {
 
 	std::vector<std::string> arr = split_string(fullPath, '/');
@@ -72,8 +101,15 @@ void filenameOperations::parseFilename() {
 	printf("Accepting image file type: %s\n", extension);
 }
 
+/*
+	@param str : The string with which to iterate over and split.
+	@param sep : The seperator we are looking for during iterations.
 
-
+	Iterate over the str variable and place seperated strings into the vector
+	based on when the sep variable is found within the str variable. This will
+	then return the completed vector of strings that were successfully delimited
+	by the seperator.
+*/
 std::vector<std::string> filenameOperations::split_string(std::string str, char sep) {
 
 	std::vector<std::string> tokens;
