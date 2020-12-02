@@ -148,14 +148,15 @@ int main() {
 
 		switch (menu) {
 			case 1: {
-				while (!exists) {
+				int attempts = 0;
+				for (attempts; attempts < 3; attempts++) {
 					cout << "Please input the file path, starting from image directory and including extension: " << endl;
 					cin >> input;
 					ifstream f(input.c_str());
 					exists = f.good();
 					f.close();
 					if (!exists) {
-						cout << "File does not exist." << endl;
+						cout << "File does not exist. Try again." << endl;
 						image = filenameOperations(input);
 						conversionType = image.convertFile();
 					}
@@ -163,7 +164,12 @@ int main() {
 						cout << "File found. Start Scan.\n\n";
 						image = filenameOperations(input);
 						conversionType = image.convertFile();
+						attempts = 4;
 					}
+				}
+				if (attempts == 3) {
+					cout << "\n**************************************\nToo many failed attempts, exiting\n**************************************\n";
+					exit(EXIT_SUCCESS);
 				}
 				
 				break;
